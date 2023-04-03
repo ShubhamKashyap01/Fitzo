@@ -1,8 +1,7 @@
-# React-and-Express-boilerplate
+# Fitzo
 
-Boilerplate to start developing a fullstack app with react as frontend and express as backend.
 
-# Requirements
+## Requirements
 
 You most have installed a package manager as npm or yarn, and the package concurrently.
 You can do it with the next commands:
@@ -19,7 +18,7 @@ For a local installation:
 or
 ```yarn add --dev concurrently```
 
-# Installation
+## Installation
 
 Run the next command to clone this repository
 
