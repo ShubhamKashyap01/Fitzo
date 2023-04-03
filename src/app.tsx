@@ -19,7 +19,7 @@ export function App() {
         <p>Hello Vite + React!</p>
         <p>
           <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
+            count is now: {count}
           </button>
         </p>
         <p>
