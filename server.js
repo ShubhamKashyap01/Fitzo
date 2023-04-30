@@ -1,9 +1,13 @@
-const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
-var axios = require("axios");
-const FitzoModel = require("./server/models/fitzoModel");
-const ActivityModel = require("./server/models/activityModel");
+import express from "express";
+import mongoose from "mongoose";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import assetsRouter from "./server/assets-router.js";
+import userRouter from "./server/user-router.js";
+import activityRouter from "./server/activity-router.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const dbURL =
@@ -27,50 +31,18 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded());
 
-const assetsRouter = require("./server/assets-router");
-const userRouter = require("./server/user-router");
 
-app.use("/", express.static(path.join(__dirname, "public")));
-app.use("/src", assetsRouter);
+
+// app.use("/", express.static(path.join(__dirname, "public")));
+// app.use("/src", assetsRouter);
 app.use("/user", userRouter);
+app.use("/activites", activityRouter);
 
 app.get("/api/v1", (req, res) => {
   res.json({
     project: "Fitzo",
     from: "Vanaldito",
   });
-});
-app.get("/try", (req, res) => {
-  ActivityModel
-    .find()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(500, err);
-    });
-});
-
-app.post("/try", (req, res) => {
-  const activity = new ActivityModel();
-  activity.name = "Boxing";
-  activity.location = [
-    {
-      city_name: "Hyd",
-      slots: [
-        { id: "HYD0600", start_time: "0600", capacity: 100 },
-        { id: "HYD0700", start_time: "0700", capacity: 100 },
-      ],
-    },
-  ];
-  activity
-    .save()
-    .then(() => {
-      res.send(200, "inserted");
-    })
-    .catch((err) => {
-      res.send(500, err);
-    });
 });
 
 app.get("/*", (_req, res) => {
