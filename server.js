@@ -1,12 +1,13 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser")
-const mongoose = require("mongoose");
+import express from "express";
+import mongoose from "mongoose";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import assetsRouter from "./server/assets-router.js";
+import userRouter from "./server/user-router.js";
+import activityRouter from "./server/activity-router.js";
 
-const assetsRouter = require("./server/routers/assets-router");
-const userRouter = require("./server/routers/user-router");
-const activityRouter = require("./server/routers/activity-router");
-activityModel = require("./server/models/activityModel");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -35,10 +36,11 @@ app.use(bodyParser.urlencoded({
 }))
 
 
-app.use("/", express.static(path.join(__dirname, "public")));
-app.use("/src", assetsRouter);
+
+// app.use("/", express.static(path.join(__dirname, "public")));
+// app.use("/src", assetsRouter);
 app.use("/user", userRouter);
-app.use("/activity", activityRouter);
+app.use("/activites", activityRouter);
 
 app.get("/api/v1", (req, res) => {
   res.json({

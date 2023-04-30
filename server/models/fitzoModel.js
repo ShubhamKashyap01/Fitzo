@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const fitzoModel = mongoose.Schema({
     name:{
@@ -15,4 +15,4 @@ const fitzoModel = mongoose.Schema({
 
 const FitzoModel = mongoose.model('User',fitzoModel);
 
-module.exports = FitzoModel;
+export default FitzoModel;
