@@ -1,0 +1,19 @@
+.activity-list-wrapper {
+    margin-top: 50px;
+    // border: 1px solid red;
+    // display: flex;
+    // justify-content: space-around;
+    // align-items: center;
+    // flex-wrap: wrap;
+  .activity-card {
+    // width: 17rem;
+    border: 2px solid blue;
+    .card-title {
+      text-transform: capitalize;
+    }
+  }
+  .activity-image{
+    height: 50px;
+    width: 50px;
+  }
+}
