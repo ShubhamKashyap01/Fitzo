@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 // import assetsRouter from "./server/assets-router.js";
 import userRouter from "./server/routers/user-router.js";
 import activityRouter from "./server/routers/activity-router.js";
+import slotRouter from "./server/routers/slotlog-router.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,7 @@ app.use(express.urlencoded());
 // app.use("/src", assetsRouter);
 app.use("/user", userRouter);
 app.use("/activities", activityRouter);
+app.use("/slot", slotRouter);
 
 app.get("/api/v1", (req, res) => {
   res.json({
