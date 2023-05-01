@@ -1,0 +1,76 @@
+[
+    {
+        "_id": "642b493110af2930f532d635",
+        "location": [
+            {
+                "city_name": "Hyd",
+                "slots": [
+                    {
+                        "id": "HYD0600",
+                        "start_time": "0600",
+                        "capacity": 100,
+                        "_id": "642b493110af2930f532d637"
+                    },
+                    {
+                        "id": "HYD0800",
+                        "start_time": "0800",
+                        "capacity": 100,
+                        "_id": "642b493110af2930f532d638"
+                    }
+                ],
+                "_id": "642b493110af2930f532d636"
+            },
+            {
+                "_id": "642fd350aed3c1bf1f8d3131",
+                "city_name": "Bangalore",
+                "slots": []
+            }
+        ],
+        "name": "Boxing",
+        "__v": 0
+    },
+    {
+        "_id": "642f34479a7edc5aca478441",
+        "name": "Xorbing",
+        "location": [
+            {
+                "city_name": "HYD",
+                "slots": [
+                    {
+                        "id": "HYD1000",
+                        "start_time": "0600",
+                        "capacity": 20,
+                        "_id": "642f34479a7edc5aca478443"
+                    }
+                ],
+                "_id": "642f34479a7edc5aca478442"
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "642f355064b9d95b3091e57a",
+        "name": "Xorbing",
+        "location": [
+            {
+                "city_name": "HYD",
+                "slots": [
+                    {
+                        "id": "HYD1000",
+                        "start_time": "1000",
+                        "capacity": 20,
+                        "_id": "642f355064b9d95b3091e57c"
+                    },
+                    {
+                        "id": "HYD1200",
+                        "start_time": "1200",
+                        "capacity": 20,
+                        "_id": "642f355064b9d95b3091e57d"
+                    }
+                ],
+                "_id": "642f355064b9d95b3091e57b"
+            }
+        ],
+        "__v": 0
+    }
+]

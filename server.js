@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import path from 'path';
 import { fileURLToPath } from 'url';
-import assetsRouter from "./server/assets-router.js";
-import userRouter from "./server/user-router.js";
-import activityRouter from "./server/activity-router.js";
+// import assetsRouter from "./server/assets-router.js";
+import userRouter from "./server/routers/user-router.js";
+import activityRouter from "./server/routers/activity-router.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,17 +30,13 @@ mongoose
 // middleware
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-    extended:true
-}))
 
 
 
 // app.use("/", express.static(path.join(__dirname, "public")));
 // app.use("/src", assetsRouter);
 app.use("/user", userRouter);
-app.use("/activites", activityRouter);
+app.use("/activities", activityRouter);
 
 app.get("/api/v1", (req, res) => {
   res.json({
