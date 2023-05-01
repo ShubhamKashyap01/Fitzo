@@ -1,13 +1,54 @@
 import express  from "express";
+import { createUser, getUserBookings, validateUser } from "../domain/user-domain.js";
 
 const router = express.Router();
 
 
-router.get('/login', (req, res) => {
-    console.log(req.query,'req');
-    console.log(req.body,'body');
-    res.json(200, req.body);
+router.post('/create', async (req, res) => {
+  try{
+    const userDetails = req.body;
+    const data = await createUser(userDetails);
+    return res.json({
+      status: 'Success',
+      message: "User created succesfully",
+      data: data
+    })
+  }
+  catch(error){
+    res.status(400).send(error.message);
+  }
 });
 
+router.post('/login', async  (req, res) => {
+  try{
+    const {email, password} = req.body;
+    const data = await validateUser(email, password);
+    return res.json({
+      status: 'Success',
+      message: "User created succesfully",
+      data: data
+    })
+  }
+  catch(error){
+    res.status(400).send(error.message);
+  }
+})
+
+//Get slots for a user
+router.get("/slot/:userid", async (req, res) => {
+    try {
+      const { userid } = req.params;
+      const slotBookings = await getUserBookings(
+        userid
+      );
+      res.json({
+        status: "SUCCESS",
+        message: "Fetched Succesfully",
+        data: slotBookings,
+      });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
 
 export default router;

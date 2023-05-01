@@ -32,7 +32,9 @@ export const getActivitySlots = async (activityName, location) => {
     if (!data) {
       throw Error("Unable to fetch the slots");
     }
-    slots = data.map((activity) => {
+    console.log('data', data);
+    const slots = data.map((activity) => {
+      console.log('in', activity);
       activity.location = activity?.location.filter((loc) => {
         return loc.city_name === location;
       });
@@ -44,6 +46,9 @@ export const getActivitySlots = async (activityName, location) => {
     if (slots.length == 0) {
       throw Error(`No slots found for the ${activityName} in ${location}`);
     }
+    console.log(slots)
     return slots?.[0];
-  } catch (error) {}
+  } catch (error) {
+    return error
+  }
 };

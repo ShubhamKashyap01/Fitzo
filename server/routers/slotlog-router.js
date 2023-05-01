@@ -43,6 +43,7 @@ router.get("/user-list", async (req, res) => {
   }
 });
 
+
 //Remove Users for a slot
 router.post("/remove-user", async (req, res) => {
   try {
