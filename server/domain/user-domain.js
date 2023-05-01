@@ -2,6 +2,7 @@ import SlotLogModel from "../models/slotLogModel.js";
 import UserModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import SubscriptionModel from "../models/subscriptionModel.js";
 
 //Create User
 async function createUser(userDetails) {
@@ -30,7 +31,7 @@ async function validateUser(email, password) {
       throw Error("Invalid password");
     }
     const token = jwt.sign({ email: user.email }, "secret");
-    return { token };
+    return { ...user?._doc, token };
   } catch (error) {
     throw error;
   }
@@ -65,4 +66,56 @@ async function getUserBookings(userid) {
   }
 }
 
-export { getUserBookings, validateUser, createUser, updateUser };
+async function subscribeUser(userSubscribeDetails) {
+  try {
+    const user = await UserModel.findById(userSubscribeDetails.userid);
+    if (!user) {
+      throw Error("User not found");
+    }
+    const subscription = await SubscriptionModel.findById(
+      userSubscribeDetails.subscriptionid
+    );
+    if (!subscription) {
+      throw Error("Subscription not found");
+    }
+    const TODAY = new Date();
+    if (user?.activeSubscriptions?.validTo > TODAY) {
+      throw Error("User currently has an active subscription");
+    }
+    user.activeSubscriptions = {
+      id: subscription._id,
+      validFrom: TODAY,
+      validTo: new Date(Date.now() + subscription?.validity * 86400000),
+    };
+    const res = await user.save();
+    return res;
+  } catch (error) {
+    throw Error(error);
+  }
+}
+
+async function upgradeSubscription(userSubscribeDetails) {
+  try {
+    const user = await UserModel.findById(userSubscribeDetails.userid);
+    if (!user) {
+      throw Error("User not found");
+    }
+    const subscription = await SubscriptionModel.findById(
+      userSubscribeDetails.subscriptionid
+    );
+    if (!subscription) {
+      throw Error("Subscription not found");
+    }
+    const TODAY = new Date();
+    user.activeSubscriptions = {
+      id: subscription._id,
+      validFrom: TODAY,
+      validTo: new Date(Date.now() + subscription?.validity * 86400000),
+    };
+    const res = await user.save();
+    return res;
+  } catch (error) {
+    throw Error(error);
+  }
+}
+export { getUserBookings, validateUser, createUser, updateUser, subscribeUser, upgradeSubscription };

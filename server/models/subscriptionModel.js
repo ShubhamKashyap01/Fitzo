@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 const subscriptionSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  type: {type: String, required: true},
   price: { type: Number, required: true },
+  description: {type: String},
   validity: { type: Number, required: true },
-//   validFrom: { type: Date, default: Date.now },
 });
 
-const Subscription = mongoose.model('Subscription', subscriptionSchema);
+const SubscriptionModel = mongoose.model('subscription', subscriptionSchema);
 
-module.exports = Subscription;
+export default SubscriptionModel;

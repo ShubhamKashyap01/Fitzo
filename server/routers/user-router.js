@@ -1,5 +1,5 @@
 import express  from "express";
-import { createUser, getUserBookings, updateUser, validateUser } from "../domain/user-domain.js";
+import { createUser, getUserBookings, subscribeUser, updateUser, upgradeSubscription, validateUser } from "../domain/user-domain.js";
 
 const router = express.Router();
 
@@ -53,17 +53,48 @@ router.put('/update', async (req, res) => {
 router.get("/slot/:userid", async (req, res) => {
     try {
       const { userid } = req.params;
-      const slotBookings = await getUserBookings(
+      const slots = await getUserBookings(
         userid
       );
       res.json({
         status: "SUCCESS",
         message: "Fetched Succesfully",
-        data: slotBookings,
+        data: slots,
       });
     } catch (error) {
       res.status(400).send(error.message);
     }
   });
+
+router.post("/subscribe", async (req, res) => {
+  try {
+    const userSubscribeDetails = req.body;
+    const result = await subscribeUser(
+      userSubscribeDetails
+    );
+    res.json({
+      status: "SUCCESS",
+      message: "Subscribed Succesfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+router.post("/upgrade-subscribe", async (req, res) => {
+  try {
+    const userSubscribeDetails = req.body;
+    const result = await upgradeSubscription(
+      userSubscribeDetails
+    );
+    res.json({
+      status: "SUCCESS",
+      message: "Subscribed Succesfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
 export default router;
