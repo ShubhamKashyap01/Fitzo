@@ -1,5 +1,9 @@
 import express from "express";
 import ActivityModel from "../models/activityModel.js";
+import {
+  getActivitySlots,
+  getAllActivitySlots,
+} from "../domain/activity-domain.js";
 
 const router = express.Router();
 
@@ -15,38 +19,34 @@ router.get("/", (req, res) => {
 });
 
 //Get all activities by location
-router.get("/location/:location", (req, res) => {
-  const location = req.params.location;
-  const query = { "location.city_name": location };
-  ActivityModel.find(query)
-    .then((data) => {
-      const result = data.map((activity) => {
-        activity.location = activity?.location.filter((loc) => {
-          return loc.city_name === location;
-        });
-        return { name: activity?.name, slots: activity?.location?.[0]?.slots };
-      });
-      return res.json(result);
-    })
-    .catch((err) => res.status(500).send(err));
+router.get("/location/:location", async (req, res) => {
+  try {
+    const location = req.params.location;
+    const slots = await getAllActivitySlots(location);
+    res.json({
+      status: "SUCCESS",
+      message: "Fetched Succesfully",
+      data: slots,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 //Get slots of an activity by location
-router.get("/:activity/location/:location", (req, res) => {
-  const name = req.params.name;
-  const location = req.params.location;
-  const query = { name: name, "location.city_name": location };
-  ActivityModel.find(query)
-    .then((data) => {
-      const result = data.map((activity) => {
-        activity.location = activity?.location.filter((loc) => {
-          return loc.city_name === location;
-        });
-        return { name: activity?.name, slots: activity?.location?.[0]?.slots };
-      });
-      return res.json(result?.[0]);
-    })
-    .catch((err) => res.status(500).send(err));
+router.get("/:activity/location/:location", async (req, res) => {
+  try {
+    const name = req.params.name;
+    const location = req.params.location;
+    const slots = await getActivitySlots(name, location);
+    res.json({
+      status: "SUCCESS",
+      message: "Fetched Succesfully",
+      data: slots,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 //Create a new activity
