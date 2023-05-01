@@ -1,5 +1,5 @@
 import express  from "express";
-import { createUser, getUserBookings, validateUser } from "../domain/user-domain.js";
+import { createUser, getUserBookings, updateUser, validateUser } from "../domain/user-domain.js";
 
 const router = express.Router();
 
@@ -26,6 +26,21 @@ router.post('/login', async  (req, res) => {
     return res.json({
       status: 'Success',
       message: "User created succesfully",
+      data: data
+    })
+  }
+  catch(error){
+    res.status(400).send(error.message);
+  }
+})
+
+router.put('/update', async (req, res) => {
+  try{
+    const userDetails = req.body;
+    const data = await updateUser(userDetails);
+    return res.json({
+      status: 'Success',
+      message: "User updated succesfully",
       data: data
     })
   }
