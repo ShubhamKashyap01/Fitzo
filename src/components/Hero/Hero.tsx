@@ -1,5 +1,13 @@
 import React from "react";
 import "./Hero.scss";
+import {
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+} from "mdb-react-ui-kit";
+
+import locations from '../../location.json'
 
 const Hero = (props) => {
   return (
@@ -11,9 +19,10 @@ const Hero = (props) => {
            {props.city}
           </button>
           <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Menu item</a></li>
-            <li><a className="dropdown-item" href="#">Menu item</a></li>
-            <li><a className="dropdown-item" href="#">Menu item</a></li>
+            {locations.map((loc)=>{
+              return <li><a className="dropdown-item" href="#">{loc.name}</a></li>
+            })}
+           
           </ul>
         </div>
       </div>

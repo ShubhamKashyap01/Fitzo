@@ -1,33 +1,58 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ActivityList.scss";
+import { Link, useNavigate } from "react-router-dom";
+
+import {
+  MDBCard,
+  MDBCardImage,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
+
 const ActivityList = (props) => {
   const [activities, setActivities] = useState([]);
+  const navigate= useNavigate();
 
   useEffect(() => {
     axios.get(`/activities/location/${props.city}`).then((res) => {
-      setActivities(res.data);
+      setActivities(res.data.data);
+      console.log(res.data.data,'csd')
     });
   }, []);
 
   return (
-    <div className="row row-cols-1 row-cols-md-3 g-4 activity-list-wrapper">
+    
+    <MDBRow className="row-cols-1 row-cols-md-3 g-4 activity-list-wrapper">
       {activities.map((activity) => (
-        <div className="col">
-          <div className="card h-100 activity-card">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-              className="card-img-top"
-              alt={activity.name}
-            />
-            <div className="card-body">
-              <h5 className="card-title">{activity.name}</h5>
-              
-            </div>
-          </div>
-        </div>
+        <MDBCol>
+          <MDBCard
+            style={{ maxWidth: "540px" }}
+            className="h-100 activity-card"
+          >
+            <MDBRow className="g-0">
+              <MDBCol md="4">
+                <MDBCardImage
+                  src={`https://fitso-images.curefit.co/uploads/BadmintonHome1622031758.png`}
+                  alt="..."
+                  fluid
+                />
+              </MDBCol>
+              <MDBCol md="8">
+                <MDBCardBody>
+                  <MDBCardTitle >
+                    <Link to={`/${props.city}/${activity.name}`}> {activity.name}</Link>
+                    </MDBCardTitle>
+                </MDBCardBody>
+              </MDBCol>
+            </MDBRow>
+          </MDBCard>
+        </MDBCol>
       ))}{" "}
-    </div>
+    </MDBRow>
   );
 };
 
