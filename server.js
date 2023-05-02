@@ -1,44 +1,36 @@
 import express from "express";
-import mongoose from "mongoose";
-import path from 'path';
-import { fileURLToPath } from 'url';
-// import assetsRouter from "./server/assets-router.js";
+import path from "path";
+import { fileURLToPath } from "url";
 import userRouter from "./server/routers/user-router.js";
 import activityRouter from "./server/routers/activity-router.js";
 import slotRouter from "./server/routers/slotlog-router.js";
+import subscriptionRouter from "./server/routers/subscription-router.js";
+import swaggerUi from "swagger-ui-express";
+import { connectDatabase } from "./server/config/database.js";
+import { specs } from "./server/config/swagger.js";
+
+const { PORT = 5000 } = process.env;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 
-//connect monogodb
-const dbURL =
-  "mongodb+srv://admin:admin@cluster0.s6rjw.mongodb.net/Fitzo?retryWrites=true&w=majority";
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-mongoose
-  .connect(dbURL, connectionParams)
-  .then(() => {
-    console.info("connected to db");
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+//Databse
+connectDatabase();
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded());
 
+//Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-
-// app.use("/", express.static(path.join(__dirname, "public")));
-// app.use("/src", assetsRouter);
+//Routes
 app.use("/user", userRouter);
 app.use("/activities", activityRouter);
 app.use("/slot", slotRouter);
+app.use("/subscription", subscriptionRouter)
 
 app.get("/api/v1", (req, res) => {
   res.json({
@@ -50,8 +42,6 @@ app.get("/api/v1", (req, res) => {
 app.get("/*", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
-const { PORT = 5000 } = process.env;
 
 app.listen(PORT, () => {
   console.log();
