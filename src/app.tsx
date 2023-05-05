@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./app.css";
- import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Slots from './components/Slots/Slots'
+import Activity from "./pages/Activity/Activity";
 
 export function App() {
-
   return (
     <>
-    <Router basename="ui">
-      <Routes>
-        <Route path="home/*" element={<Home/>}/>
-        <Route path="login" element={<h2>Login</h2>}/>
-        <Route path="signup" element={<h2>signup</h2>}/>
-        <Route path="*" element={<h2>defualt</h2>}/>
-        <Route path=":location" >
-          <Route path="" element={<Home/>}/>
-          <Route path=":activity" element={<Slots/>}/>
-        </Route>
-      </Routes>
-    </Router>
+      <Router basename="webapp">
+        <Routes>
+          <Route path="/" element={<Navigate to={"hyderabad"} />} />
+          <Route path=":location">
+            <Route path="" element={<Home />} />
+            <Route path=":activity" element={<Activity />} />
+          </Route>
+          <Route path="membership" element={<h1>Membership</h1>} ></Route>
+        </Routes>
+      </Router>
     </>
   );
 }
