@@ -1,5 +1,5 @@
 import express  from "express";
-import { createSubscription, deleteSubscription, getAllSubscriptions, updateSubscription } from "../domain/Subscription-domain.js";
+import { createSubscription, deleteSubscription, getAllSubscriptions, updateSubscription } from "../domain/subscriptions-domain.js";
 
 const router = express.Router();
 
