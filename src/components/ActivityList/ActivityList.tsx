@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import useApi from "../../hooks/useApi";
 import { activityType } from "../../constants/activityConstants";
+import COLOR from "../../constants/colors";
 
 const ActivityList = ({ city }: { city: string }) => {
   const { response, error, loading } = useApi(
@@ -20,7 +21,7 @@ const ActivityList = ({ city }: { city: string }) => {
   const getBackground = (name: string) =>
     activityType?.[name]?.background
       ? activityType?.[name]?.background
-      : "rgb(235, 255, 239)";
+      : COLOR.PEACH;
 
   return (
     <Container className="container-xxl" style={{ maxWidth: "1100px" }}>
