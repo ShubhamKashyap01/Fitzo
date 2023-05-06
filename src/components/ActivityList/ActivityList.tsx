@@ -35,21 +35,23 @@ const ActivityList = ({ city }: { city: string }) => {
         {activities?.map((activity) => (
           <Col sm="6" lg="4" className="my-2">
             <Link to={activity.name}>
-            <Card
-            className="activity-card"
-            style={{  backgroundColor: getBackground(activity?.name)}}
-            >
-              <Card.Img
-                src={getImageIcon(activity?.name)}
-                className="activity-img"
-              />
-              <Card.Body>
-                <Card.Title className="text-capitalize">
-                  {activity?.name}
-                </Card.Title>
-                <Card.Text style={{color: '#ff3866'}}>{activity?.slots?.length} Slots available</Card.Text>
-              </Card.Body>
-            </Card>
+              <Card
+                className="activity-card"
+                style={{ backgroundColor: getBackground(activity?.name) }}
+              >
+                <Card.Img
+                  src={getImageIcon(activity?.name)}
+                  className="activity-img"
+                />
+                <Card.Body>
+                  <Card.Title className="text-capitalize">
+                    {activity?.name}
+                  </Card.Title>
+                  <Card.Text style={{ color: "#ff3866" }}>
+                    {activity?.slots?.length} Slots available
+                  </Card.Text>
+                </Card.Body>
+              </Card>
             </Link>
           </Col>
         ))}
