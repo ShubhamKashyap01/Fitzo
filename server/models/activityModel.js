@@ -16,3 +16,44 @@ const activity = mongoose.Schema({
 const ActivityModel = mongoose.model("Activity", activity);
 
 export default ActivityModel;
+
+// const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+
+// // Define Activity Schema
+// const activitySchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   slots: {
+//     type: [String],
+//     required: true
+//   }
+// });
+
+// // Define Center Schema
+// const centerSchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   activities: {
+//     type: [activitySchema],
+//     required: true
+//   }
+// });
+
+// // Define City Schema
+// const citySchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   centers: {
+//     type: [centerSchema],
+//     required: true
+//   }
+// });
+
+// module.exports = mongoose.model('City', citySchema);

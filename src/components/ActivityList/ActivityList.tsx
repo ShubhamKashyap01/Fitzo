@@ -1,58 +1,62 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useMemo } from "react";
 import "./ActivityList.scss";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
+import useApi from "../../hooks/useApi";
+import { activityType } from "../../constants/activityConstants";
+import COLOR from "../../constants/colors";
 
-const ActivityList = (props) => {
-  const [activities, setActivities] = useState([]);
-  const navigate= useNavigate();
+const ActivityList = ({ city }: { city: string }) => {
+  const { response, error, loading } = useApi(
+    `/activities/location/${city}`,
+    "get"
+  );
+  const activities = useMemo(() => response?.data ?? [], [response]);
+  const getImageIcon = (name: string) =>
+    activityType?.[name]?.icon
+      ? activityType?.[name]?.icon
+      : "https://fitso-images.curefit.co/uploads/swimming_web1625775914.png";
 
-  useEffect(() => {
-    axios.get(`/activities/location/${props.city}`).then((res) => {
-      setActivities(res.data.data);
-      console.log(res.data.data,'csd')
-    });
-  }, []);
+  const getBackground = (name: string) =>
+    activityType?.[name]?.background
+      ? activityType?.[name]?.background
+      : COLOR.PEACH;
 
   return (
-    
-    <MDBRow className="row-cols-1 row-cols-md-3 g-4 activity-list-wrapper">
-      {activities.map((activity) => (
-        <MDBCol>
-          <MDBCard
-            style={{ maxWidth: "540px" }}
-            className="h-100 activity-card"
-          >
-            <MDBRow className="g-0">
-              <MDBCol md="4">
-                <MDBCardImage
-                  src={`https://fitso-images.curefit.co/uploads/BadmintonHome1622031758.png`}
-                  alt="..."
-                  fluid
+    <Container className="container-xxl" style={{ maxWidth: "1100px" }}>
+      <Row className="my-4">
+        <h3 className="p-0 mb-4" style={{ fontWeight: 400 }}>
+          Activities in your area
+        </h3>
+        <p className="thinline"></p>
+      </Row>
+      <Row className="my-4">
+        {activities?.map((activity) => (
+          <Col sm="6" lg="4" className="my-2">
+            <Link to={activity.name}>
+              <Card
+                className="activity-card"
+                style={{ backgroundColor: getBackground(activity?.name) }}
+              >
+                <Card.Img
+                  src={getImageIcon(activity?.name)}
+                  className="activity-img"
                 />
-              </MDBCol>
-              <MDBCol md="8">
-                <MDBCardBody>
-                  <MDBCardTitle >
-                    <Link to={`/${props.city}/${activity.name}`}> {activity.name}</Link>
-                    </MDBCardTitle>
-                </MDBCardBody>
-              </MDBCol>
-            </MDBRow>
-          </MDBCard>
-        </MDBCol>
-      ))}{" "}
-    </MDBRow>
+                <Card.Body>
+                  <Card.Title className="text-capitalize">
+                    {activity?.name}
+                  </Card.Title>
+                  <Card.Text style={{ color: "#ff3866" }}>
+                    {activity?.slots?.length} Slots available
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 

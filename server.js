@@ -31,6 +31,7 @@ app.use("/user", userRouter);
 app.use("/activities", activityRouter);
 app.use("/slot", slotRouter);
 app.use("/subscription", subscriptionRouter)
+app.use(express.static('./server/assets'));
 
 app.get("/api/v1", (req, res) => {
   res.json({

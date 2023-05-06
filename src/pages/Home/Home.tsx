@@ -1,17 +1,14 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Hero from "../../components/Hero/Hero";
 import ActivityList from "../../components/ActivityList/ActivityList";
+import Hero from "../../components/Hero/Hero";
+import Header from "../../components/Header/Header";
 
 const Home = () => {
-  let params = useParams();
-  let location = params.location ?? "hyderabad";
-  console.log(location);
-
+  const {location = "hyderabad"}  = useParams();
   return (
     <div className="home">
-      <Hero city={location} />
+      <Header city={location}/>
+      <Hero />
       <ActivityList city={location} />
     </div>
   );
