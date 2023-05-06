@@ -1,19 +1,36 @@
-.activity-list-wrapper {
-    // margin-top: 50px;
-    // border: 1px solid red;
-    // display: flex;
-    // justify-content: space-around;
-    // align-items: center;
-    // flex-wrap: wrap;
-  .activity-card {
-    // width: 17rem;
-    border: 2px solid blue;
-    .card-title {
-      text-transform: capitalize;
+.thinline {
+  border-bottom: 0.3rem solid rgb(255, 56, 102);
+  width: 10rem;
+  color: #1c1c1c;
+}
+
+.activity-card {
+  flex-direction: row-reverse;
+  align-items: "center";
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  border-radius: 0.8rem;
+  border: none;
+
+  .activity-img {
+    max-width: 60%;
+    object-fit: contain;
+    height: 125px;
+    transition: transform 0.3s ease-in;
+  }
+
+  &:hover {
+    .activity-img {
+      transform: scale(1.2);
     }
   }
-  .activity-image{
-    height: 50px;
-    width: 50px;
+}
+
+
+a {
+  color: #1c1c1c;
+  text-decoration: none;
+
+  &:hover {
+    color: #1c1c1c;
   }
 }

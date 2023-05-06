@@ -1,20 +1,17 @@
-.header-wrapper{
-    background-color: rgb(255, 255, 255);
-    position: sticky;
-    top: 0px;
-    z-index: 5;
-    animation: 0.25s ease-in 0s 1 normal none running fadeInAnimation;
-}
 .header{
-    padding: 1.5rem 0px;
-    margin: 0px auto;
-    height: 2.1rem;
-    background-color: rgb(255, 255, 255);
-    max-width: 110rem;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    border-bottom: 1px solid grey;
+    .logo{
+        font-weight: 900;
+    }
+    .accordion-button, .accordion-body{
+        padding: 0;
+    }
+    .accordion-body{
+        position: absolute;
+        width: 315px;
+        z-index: 10;
+    }
+    .form-control-lg{
+        font-size: 1.25rem !important;
+        text-transform: capitalize;
+    }
 }
