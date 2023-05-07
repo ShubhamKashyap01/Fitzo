@@ -1,25 +1,3 @@
-.hero-container {
-    background: rgb(200, 200, 200);
-    height: 555px;
-    min-height: 43.7rem;
-    max-height: 555px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  
-    img {
-      overflow: hidden;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100px;
-      transition: all 1.4s ease 0s;
-      opacity: 1;
-      object-fit: cover;
-    }
-  }
-  
 .header-text {
   color: rgb(209, 164, 77);
   text-align: center;

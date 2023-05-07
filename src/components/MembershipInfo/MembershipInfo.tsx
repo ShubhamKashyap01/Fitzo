@@ -1,16 +1,17 @@
 import React, { useMemo } from "react";
 import "./MembershipInfo.scss";
 import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import useApi from "../../hooks/useApi";
 import { activityType } from "../../constants/activityConstants";
 import COLOR from "../../constants/colors";
+import Header from "../Header/Header";
 
 const MembershipInfo = () => {
   const { response, error, loading } = useApi(`/subscription/all`, "get");
   const Subscriptions = useMemo(() => response?.data ?? [], [response]);
-  console.log(Subscriptions, "list of subs");
+  const { location = "hyderabad" } = useParams();
 
   const discCalucate = (price, discount) => {
     return price - (price * discount) / 100;
@@ -22,13 +23,14 @@ const MembershipInfo = () => {
     "https://fitso-images.curefit.co/uploads/PurchaseBgImage.png";
   return (
     <Container fluid="none" className="membership-container">
+      <Header city={location}></Header>
       <Row className="image-container">
         <Image
           className="image-header"
           src="https://fitso-images.curefit.co/uploads/PurchaseBgImage.png"
         ></Image>
       </Row>
-      <Row style={{ position: "absolute", top: "10%", width: "100%" }}>
+      <Row style={{ position: "absolute", top: "30%", width: "100%" }}>
         <p className="header-text">MEMBERSHIP</p>
       </Row>
       <h2 className="products-title" style={{ margin: 30 }}>
@@ -81,7 +83,7 @@ const MembershipInfo = () => {
               className="px-5 py-2 mb-3"
               style={{ background: membership?.most_popular ? "#212529" : COLOR.PEACH, border: "none" }}
             >
-              Buy Now
+              {membership?.type === "Trial" ? "Free Trial" : "Buy Now"}
             </Button>
           </Container>
         ))}

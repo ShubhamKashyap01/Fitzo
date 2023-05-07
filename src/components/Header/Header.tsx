@@ -26,7 +26,7 @@ const Header = ({ city }: { city?: string }) => {
   return (
     <Navbar bg="light" expand="lg" className="header p-sm-4">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/webapp">
           <h3 className="logo">FitZo</h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
