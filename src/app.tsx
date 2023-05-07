@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Activity from "./pages/Activity/Activity";
+import Membership from "./pages/Membership/Memebership";
 import { ProvideAuth } from "./hooks/useAuth";
 import Auth from "./pages/Auth/Auth";
 
@@ -23,7 +24,7 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path=":activity" element={<Activity />} />
           </Route>
-          <Route path="membership" element={<h1>Membership</h1>} />
+          <Route path="membership" element={<Membership/>} ></Route>
           <Route path="auth" element={<Auth />} />
         </Routes>
       </Router>
