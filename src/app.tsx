@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Activity from "./pages/Activity/Activity";
+import Membership from "./pages/Membership/Memebership";
 
 export function App() {
   return (
@@ -19,7 +20,7 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path=":activity" element={<Activity />} />
           </Route>
-          <Route path="membership" element={<h1>Membership</h1>} ></Route>
+          <Route path="membership" element={<Membership/>} ></Route>
         </Routes>
       </Router>
     </>
