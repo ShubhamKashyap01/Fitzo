@@ -25,7 +25,7 @@ function Auth() {
   return (
     <>
       <Header />
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+    <MDBContainer className="p-3 my-5 d-flex flex-column w-50" style={{maxWidth: '500px'}}>
       <MDBTabs
         pills
         justify

@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
+import {
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+  MDBCheckbox,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
 import { useAuth } from "../../hooks/useAuth";
+import Icon from "../../common/Icon";
 
 const Login = ({ callback }) => {
   const [cred, setCred] = useState({
@@ -17,7 +25,7 @@ const Login = ({ callback }) => {
   const handleSignIn = async () => {
     try {
       await signin(cred.email, cred.password);
-      setError('')
+      setError("");
     } catch (err) {
       console.log(err.message);
       setError(err.response.data);

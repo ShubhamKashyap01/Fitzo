@@ -1,33 +1,53 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SizeProp } from "@fortawesome/fontawesome-svg-core";
+import React, { useEffect, useMemo, useRef } from "react";
+import { Color } from "react-bootstrap/esm/types";
 
 interface IconProps {
-  src?: string;
-  icon?: any;
-  size?: SizeProp | number;
+  icon?: string;
+  fa?: boolean;
+  size?: number;
+  type?: "regular" | "solid" | "brands" | "duotone" | "light";
+  color?: string;
 }
 
 const Icon: React.FC<IconProps> = (props) => {
-  const { src, icon, size } = props;
+  const ref = useRef<HTMLObjectElement>(null);
+  const { fa, icon, size, type, color } = props;
+  const src = fa ? `/assets/icons/svgs/${type}/${icon}.svg` : icon;
+  const handler = () => {
+    if (ref.current?.contentDocument?.children?.[0]) {  
+      (ref.current.contentDocument.children[0] as HTMLElement).style.fill =
+        color;
+    }
+  };
+
   return (
     <>
-      {src && (
+      <object
+        ref={ref}
+        data={src}
+        type="image/svg+xml"
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+        }}
+        onLoad={handler}
+      >
         <img
           src={src}
           alt=""
           style={{ width: `${size}px`, height: `${size}px` }}
         />
-      )}
-      {icon && <FontAwesomeIcon icon={icon} size={size} />}
+      </object>
     </>
   );
 };
 
 Icon.defaultProps = {
-  src: "",
+  fa: false,
   icon: "",
-  size: '2x',
+  size: 30,
+  type: "regular",
+  color: "black",
 };
 
 export default Icon;
