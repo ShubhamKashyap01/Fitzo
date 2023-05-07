@@ -30,14 +30,20 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/user", userRouter);
 app.use("/activities", activityRouter);
 app.use("/slot", slotRouter);
-app.use("/subscription", subscriptionRouter)
-app.use(express.static('./server/assets'));
+app.use("/subscription", subscriptionRouter);
+app.use(express.static("./server/assets"));
 
 app.get("/api/v1", (req, res) => {
   res.json({
     project: "Fitzo",
     from: "Vanaldito",
   });
+});
+
+//Serving Static files
+app.get("/assets/*", (_req, res) => {
+  console.log(_req.url);
+  res.sendFile(path.join(__dirname, "public", _req.url));
 });
 
 app.get("/*", (_req, res) => {
