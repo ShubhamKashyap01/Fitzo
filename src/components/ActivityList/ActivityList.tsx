@@ -21,7 +21,7 @@ const ActivityList = ({ city }: { city: string }) => {
   const getBackground = (name: string) =>
     activityType?.[name]?.background
       ? activityType?.[name]?.background
-      : COLOR.PEACH;
+      : 'rgb(237, 244, 255)';
 
   return (
     <Container className="container-xxl" style={{ maxWidth: "1100px" }}>
@@ -44,7 +44,7 @@ const ActivityList = ({ city }: { city: string }) => {
                   className="activity-img"
                 />
                 <Card.Body>
-                  <Card.Title className="text-capitalize">
+                  <Card.Title className="text-capitalize fw-normal">
                     {activity?.name}
                   </Card.Title>
                   <Card.Text style={{ color: "#ff3866" }}>

@@ -1,5 +1,7 @@
 import "./app.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,10 +10,12 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Activity from "./pages/Activity/Activity";
+import { ProvideAuth } from "./hooks/useAuth";
+import Auth from "./pages/Auth/Auth";
 
 export function App() {
   return (
-    <>
+    <ProvideAuth>
       <Router basename="webapp">
         <Routes>
           <Route path="/" element={<Navigate to={"hyderabad"} />} />
@@ -19,9 +23,10 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path=":activity" element={<Activity />} />
           </Route>
-          <Route path="membership" element={<h1>Membership</h1>} ></Route>
+          <Route path="membership" element={<h1>Membership</h1>} />
+          <Route path="auth" element={<Auth />} />
         </Routes>
       </Router>
-    </>
+    </ProvideAuth>
   );
 }

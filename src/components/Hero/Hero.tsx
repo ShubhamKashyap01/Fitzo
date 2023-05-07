@@ -19,7 +19,7 @@ const Hero = (props) => {
         <Row style={{ width: "30rem", height: "3.6rem", marginTop: "3.1rem" }}>
           <Button
             className="px-5 py-2"
-            style={{ background: COLOR.PEACH, border: "none" }}
+            style={{ background: COLOR.PEACH, border: "none", fontSize: '14px', boxShadow: 'none' }}
           >
             Book Free Trial
           </Button>
