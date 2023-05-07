@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import {
-  MDBBtn,
-  MDBIcon,
-  MDBInput,
-  MDBCheckbox,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import { MDBBtn, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
 import { useAuth } from "../../hooks/useAuth";
-import Icon from "../../common/Icon";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ callback }) => {
   const [cred, setCred] = useState({
@@ -16,7 +9,8 @@ const Login = ({ callback }) => {
     password: "",
   });
   const [error, setError] = useState("");
-  const { signin } = useAuth();
+  const { user, signin } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCred({ ...cred, [e.target.name]: e.target.value });
@@ -31,6 +25,13 @@ const Login = ({ callback }) => {
       setError(err.response.data);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   return (
     <>
       <div className="text-center mb-3">
@@ -41,7 +42,7 @@ const Login = ({ callback }) => {
         wrapperClass="mb-4"
         label="Email address"
         name="email"
-        id="form1"
+        id="email-login"
         type="email"
         onChange={handleChange}
       />
@@ -49,7 +50,7 @@ const Login = ({ callback }) => {
         wrapperClass="mb-4"
         name="password"
         label="Password"
-        id="form2"
+        id="password-login"
         type="password"
         onChange={handleChange}
       />

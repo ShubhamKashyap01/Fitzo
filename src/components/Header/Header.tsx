@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import { Nav, Navbar, Form, ListGroup, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useApi from "../../hooks/useApi";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = ({ city }: { city?: string }) => {
   const {
@@ -12,15 +13,16 @@ const Header = ({ city }: { city?: string }) => {
     loading,
   } = useApi(`/assets/json/location.json`, "get");
 
-  useEffect(() => {
-    console.log("locations", locations);
-  }, [locations]);
+  const { user, signout } = useAuth();
+
   const [locationInput, setLocation] = useState("");
+
   const filteredLocations = useMemo(() => {
     return locations?.filter((l) =>
       l.name.toLowerCase().startsWith(locationInput.toLowerCase())
     );
   }, [locationInput, locations]);
+
   return (
     <Navbar bg="light" expand="lg" className="header p-sm-4">
       <Container>
@@ -65,6 +67,11 @@ const Header = ({ city }: { city?: string }) => {
                 </Accordion.Item>
               </Accordion>
               <Nav.Link href="/webapp/membership">Membership</Nav.Link>
+              {user ? (
+                <Nav.Link onClick={signout}>Sign Out</Nav.Link>
+              ) : (
+                <Nav.Link href="/webapp/auth">Sign In</Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         )}

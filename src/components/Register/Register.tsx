@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBBtn,
   MDBInput,
@@ -9,12 +9,13 @@ import {
 } from "mdb-react-ui-kit";
 import Icon from "../../common/Icon";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 // import { Col } from "react-bootstrap";
 // import Icon from "../../common/Icon";
 // import { faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
-  const [user, setUser] = useState({
+  const [userDetails, setUser] = useState({
     email: "",
     password: "",
     cPassword: "",
@@ -33,12 +34,19 @@ const Register = () => {
 
   const [error, setError] = useState("");
 
-  const { signup } = useAuth();
+  const { user, signup } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e: any) => {
     //Verify if the password and confirm password are the same
     if (e.target.name === "cPassword") {
-      if (e.target.value !== user.password) {
+      if (e.target.value !== userDetails.password) {
         setError("Password and Confirm Password must be the same");
       } else {
         setError("");
@@ -55,12 +63,14 @@ const Register = () => {
         setError("");
       }
     }
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...userDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    signup(user);
+    if (!error) {
+      signup(userDetails);
+    }
   };
 
   return (
@@ -92,7 +102,7 @@ const Register = () => {
         name="firstName"
         wrapperClass="mb-4"
         label="Firstname"
-        id="form1"
+        id="firstName-register"
         type="text"
         onChange={handleChange}
       />
@@ -100,7 +110,7 @@ const Register = () => {
         name="lastName"
         wrapperClass="mb-4"
         label="Lastname"
-        id="form1"
+        id="lastName-register"
         type="text"
         onChange={handleChange}
       />
@@ -108,7 +118,7 @@ const Register = () => {
         name="email"
         wrapperClass="mb-4"
         label="Email"
-        id="form1"
+        id="email-register"
         type="email"
         onChange={handleChange}
       />
@@ -116,7 +126,7 @@ const Register = () => {
         name="password"
         wrapperClass="mb-4"
         label="Password"
-        id="form1"
+        id="password-register"
         type="password"
         onChange={handleChange}
       />
@@ -124,7 +134,7 @@ const Register = () => {
         name="cPassword"
         wrapperClass="mb-4"
         label="Confirm Password"
-        id="form1"
+        id="cPassword-register"
         type="password"
         onChange={handleChange}
       />
@@ -132,7 +142,7 @@ const Register = () => {
         name="dateOfBirth"
         wrapperClass="mb-4"
         label="Date of Birth"
-        id="form1"
+        id="dateOfBirth-register"
         type="date"
         onChange={handleChange}
       />
@@ -140,7 +150,7 @@ const Register = () => {
         name="phone"
         wrapperClass="mb-4"
         label="Phone"
-        id="form1"
+        id="phpne-register"
         type="text"
         onChange={handleChange}
       />
@@ -148,7 +158,7 @@ const Register = () => {
         name="address"
         wrapperClass="mb-4"
         label="Address"
-        id="form1"
+        id="address-register"
         type="text"
         onChange={handleChange}
       />
@@ -156,7 +166,7 @@ const Register = () => {
         name="city"
         wrapperClass="mb-4"
         label="City"
-        id="form1"
+        id="city-register"
         type="text"
         onChange={handleChange}
       />
@@ -164,7 +174,7 @@ const Register = () => {
         name="state"
         wrapperClass="mb-4"
         label="State"
-        id="form1"
+        id="state-register"
         type="text"
         onChange={handleChange}
       />
@@ -172,7 +182,7 @@ const Register = () => {
         name="zip"
         wrapperClass="mb-4"
         label="Zip"
-        id="form1"
+        id="zip-register"
         type="text"
         onChange={handleChange}
       />
@@ -180,7 +190,7 @@ const Register = () => {
         name="country"
         wrapperClass="mb-4"
         label="Country"
-        id="form1"
+        id="country-register"
         type="text"
         onChange={handleChange}
       />
@@ -190,7 +200,8 @@ const Register = () => {
         <MDBCol size="auto">
           <MDBBtn
             style={{
-              backgroundColor: user.gender === "male" ? "#2196F3" : "lightgray",
+              backgroundColor:
+                userDetails.gender === "male" ? "#2196F3" : "lightgray",
             }}
             name="gender"
             value="male"
@@ -203,7 +214,7 @@ const Register = () => {
           <MDBBtn
             style={{
               backgroundColor:
-                user.gender === "female" ? "#FF1744" : "lightgray",
+                userDetails.gender === "female" ? "#FF1744" : "lightgray",
             }}
             name="gender"
             value="female"
@@ -216,7 +227,7 @@ const Register = () => {
           <MDBBtn
             style={{
               backgroundColor:
-                user.gender === "transgender" ? "#FCC419" : "lightgray",
+                userDetails.gender === "transgender" ? "#FCC419" : "lightgray",
             }}
             name="gender"
             value="transgender"
@@ -235,7 +246,9 @@ const Register = () => {
         />
       </div>
 
-      <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+      <MDBBtn className="mb-4 w-100" onClick={handleSubmit}>
+        Sign up
+      </MDBBtn>
     </>
   );
 };
