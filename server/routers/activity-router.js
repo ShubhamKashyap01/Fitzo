@@ -38,7 +38,8 @@ router.get("/:activity/location/:location", async (req, res) => {
   try {
     const activity = req.params.activity;
     const location = req.params.location;
-    const slots = await getActivitySlots(activity, location);
+    const { date = new Date()} = req.body;
+    const slots = await getActivitySlots(activity, location, date);
     res.json({
       status: "SUCCESS",
       message: "Fetched Succesfully",
@@ -57,7 +58,6 @@ router.post("/", async (req, res) => {
   const query = { name: req.body.name };
   try {
     const existingActivity = await ActivityModel.findOne(query);
-    console.log(existingActivity);
     if (existingActivity) {
       res.status(400).send("Activity already exists");
     } else {

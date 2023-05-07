@@ -47,7 +47,7 @@ async function findUsersinASlot(date, activityname, slotId) {
     if (slotBooking) {
       return slotBooking;
     }
-    throw Error("Slot not found");
+    return [];
   } catch (error) {
     throw error;
   }
@@ -61,7 +61,6 @@ async function removeUserFromSlot(date, activityname, slotId, user) {
       date,
       slotId,
     });
-    console.log(slotBooking)
     if (slotBooking) {
       if (slotBooking.usersBooked.includes(user)) {
         slotBooking.usersBooked = slotBooking.usersBooked.filter(function (
