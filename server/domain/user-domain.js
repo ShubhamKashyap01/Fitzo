@@ -87,6 +87,7 @@ async function subscribeUser(userSubscribeDetails) {
       validFrom: TODAY,
       validTo: new Date(Date.now() + subscription?.validity * 86400000),
     };
+    user.role = "member";
     const res = await user.save();
     return res;
   } catch (error) {
@@ -112,10 +113,18 @@ async function upgradeSubscription(userSubscribeDetails) {
       validFrom: TODAY,
       validTo: new Date(Date.now() + subscription?.validity * 86400000),
     };
+    user.role = "member";
     const res = await user.save();
     return res;
   } catch (error) {
     throw Error(error);
   }
 }
-export { getUserBookings, validateUser, createUser, updateUser, subscribeUser, upgradeSubscription };
+export {
+  getUserBookings,
+  validateUser,
+  createUser,
+  updateUser,
+  subscribeUser,
+  upgradeSubscription,
+};
