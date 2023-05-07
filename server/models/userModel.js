@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: { type: Date },
   gender: { type: String, trim: true, },
   location: { type: String, trim: true, },
-  role: { type: String, trim: true, },
+  role: { type: String, trim: true, default: 'non-member'},
   activeSubscriptions: {
     type: {
       id: { type: mongoose.Schema.Types.ObjectId, ref: "Subscription" },

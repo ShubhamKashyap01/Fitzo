@@ -1,5 +1,8 @@
 import React from "react";
-import { MDBBtn, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
+import { MDBBtn, MDBInput, MDBCheckbox, MDBIcon, MDBRow, MDBCol } from "mdb-react-ui-kit";
+// import { Col } from "react-bootstrap";
+// import Icon from "../../common/Icon";
+// import { faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   return (
@@ -17,7 +20,10 @@ const Register = () => {
         id="form1"
         type="password"
       />
-
+      {/* <MDBRow>
+        <MDBCol><Icon icon={faMars}/></MDBCol>
+        <MDBCol><Icon icon={faVenus}/></MDBCol>
+      </MDBRow> */}
       <div className="d-flex justify-content-center mb-4">
         <MDBCheckbox
           name="flexCheck"
