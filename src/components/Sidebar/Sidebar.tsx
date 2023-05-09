@@ -24,17 +24,17 @@ const Sidebar = () => {
           </Link>
         </li>
         <li className="active my-4">
-          <Link to="./profile" className="p-5">
+          <Link to="./profile" className="p-4">
             <Icon fa icon="user" color="white" type="light" size={30} />
           </Link>
         </li>
         <li className="active my-4">
-          <Link to="./past" className="p-5">
+          <Link to="./past" className="p-4">
             <Icon fa icon="clock" color="white" type="light" size={30} />
           </Link>
         </li>
         <li className="active my-4">
-          <Link to="./membership" className="p-5">
+          <Link to="./membership" className="p-4">
             <Icon fa icon="money-check" color="white" type="light" size={30} />
           </Link>
         </li>

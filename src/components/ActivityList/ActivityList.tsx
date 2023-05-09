@@ -1,18 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useEffect } from "react";
 import "./ActivityList.scss";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import useApi from "../../hooks/useApi";
 import { activityType } from "../../constants/activityConstants";
-import COLOR from "../../constants/colors";
+import { getActivitiesByLocation } from "../../services/activityService";
 
-const ActivityList = ({ city }: { city: string }) => {
-  const { response, error, loading } = useApi(
-    `/activities/location/${city}`,
-    "get"
-  );
-  const activities = useMemo(() => response?.data ?? [], [response]);
+const ActivityList = ({ city, style = {} }) => {
+  const [activities, setActivities] = React.useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getActivitiesByLocation(city);
+        setActivities(res.data);
+      } catch (err) {
+        console.log(err);
+        setActivities([]);
+      }
+    })();
+  }, [city]);
 
   const getBackground = (name: string) =>
     activityType?.[name]?.background
@@ -20,7 +26,7 @@ const ActivityList = ({ city }: { city: string }) => {
       : "rgb(237, 244, 255)";
 
   return (
-    <Container className="container-xxl" style={{ maxWidth: "1100px" }}>
+    <Container style={{ maxWidth: "1100px", ...style }}>
       <Row className="my-4">
         <h3 className="p-0 mb-4" style={{ fontWeight: 400 }}>
           Activities in your area
@@ -30,7 +36,7 @@ const ActivityList = ({ city }: { city: string }) => {
       <Row className="my-4">
         {activities?.map((activity) => (
           <Col sm="6" lg="4" className="my-2">
-            <Link to={activity.name}>
+            <Link to={`/${city}/${activity.name}`}>
               <Card
                 className="activity-card"
                 style={{ backgroundColor: getBackground(activity?.name) }}

@@ -26,7 +26,7 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path=":activity" element={<Activity />} />
           </Route>
-          <Route path="user" element={<MemberLanding/>} ></Route>
+          <Route path="user/*" element={<MemberLanding/>} ></Route>
           <Route path="membership" element={<Membership/>} ></Route>
           <Route path="auth" element={<Auth />} />
           <Route path="payment" element={<PaymentForm />} />

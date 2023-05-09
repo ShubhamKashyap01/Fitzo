@@ -14,3 +14,7 @@ body {
   font-family: 'Caudex', serif;
   font-family: 'Inter', sans-serif;
 }
+
+.accordion-button::after{
+  display: none
+}

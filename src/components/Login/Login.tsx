@@ -10,7 +10,6 @@ const Login = ({ callback }) => {
   });
   const [error, setError] = useState("");
   const { user, signin } = useAuth();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCred({ ...cred, [e.target.name]: e.target.value });
@@ -28,9 +27,10 @@ const Login = ({ callback }) => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      console.log('user', user)
+      window.location.href = "/webapp/user";
     }
-  }, [user, navigate]);
+  }, [user]);
 
   return (
     <>

@@ -1,23 +1,23 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import useApi from "../../hooks/useApi";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import Slots from "./Slots";
+import TZ_OFFSET from "../../constants/time";
 
 const SlotBooking = () => {
   const { location = "hyderabad", activity = "boxing" } = useParams();
   const [date, setDate] = useState(
-    new Date(new Date(new Date().toDateString()).getTime() + 330 * 60 * 1000)
+    new Date(new Date(new Date().toDateString()).getTime() + TZ_OFFSET)
   );
   useEffect(() => {
     console.log(date);
   }, [date]);
   const onChange = (date: Date) => {
-    setDate(() => new Date(date.getTime() + 330 * 60 * 1000));
+    setDate(() => new Date(date.getTime() + TZ_OFFSET));
   };
   return (
     <Container

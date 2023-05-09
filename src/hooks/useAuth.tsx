@@ -43,6 +43,7 @@ function useProvideAuth() {
     }
   };
   const signout = () => {
+    localStorage.removeItem("user");
     setUser(false);
   };
 
@@ -56,8 +57,6 @@ function useProvideAuth() {
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
     }
   }, [user]);
   // Return the user object and auth methods
