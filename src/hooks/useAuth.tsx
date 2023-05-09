@@ -24,12 +24,10 @@ export const ProvideAuth = ({ children }) => {
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const signin = async (email, password) => {
-    console.log("signing in");
     try {
       const res = await signInWithEmailAndPassword(email, password);
-      console.log(res.data);
-      setUser(res.data);
-      return res.data;
+      setUser(res?.data?.data);
+      return res.data?.data;
     } catch (error) {
       console.log(error);
       throw error;
@@ -38,8 +36,8 @@ function useProvideAuth() {
   const signup = async (user: any) => {
     try {
       const res = await createUserWithEmailAndPassword(user);
-      setUser(res.data);
-      return res.data;
+      setUser(res?.data?.data);
+      return res?.data?.data;
     } catch (error) {
       throw error;
     }

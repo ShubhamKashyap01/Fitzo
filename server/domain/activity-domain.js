@@ -60,10 +60,10 @@ export const getActivitySlots = async (activityName, location, date) => {
           capacity: slot.capacity,
           occupied: users?.usersBooked?.length || 0,
           available: slot.capacity - (users?.usersBooked?.length || 0) > 0,
+          users: users?.usersBooked,
         });
       }
     }
-    console.log("slots", newSlots);
 
     return { ...slots, slots: newSlots };
   } catch (error) {

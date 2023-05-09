@@ -13,15 +13,11 @@ const ActivityList = ({ city }: { city: string }) => {
     "get"
   );
   const activities = useMemo(() => response?.data ?? [], [response]);
-  const getImageIcon = (name: string) =>
-    activityType?.[name]?.icon
-      ? activityType?.[name]?.icon
-      : "https://fitso-images.curefit.co/uploads/swimming_web1625775914.png";
 
   const getBackground = (name: string) =>
     activityType?.[name]?.background
       ? activityType?.[name]?.background
-      : 'rgb(237, 244, 255)';
+      : "rgb(237, 244, 255)";
 
   return (
     <Container className="container-xxl" style={{ maxWidth: "1100px" }}>
@@ -40,7 +36,9 @@ const ActivityList = ({ city }: { city: string }) => {
                 style={{ backgroundColor: getBackground(activity?.name) }}
               >
                 <Card.Img
-                  src={getImageIcon(activity?.name)}
+                  src={`/assets/images/${
+                    activityType?.[activity?.name]?.thumbnail || "boxing"
+                  }.svg`}
                   className="activity-img"
                 />
                 <Card.Body>

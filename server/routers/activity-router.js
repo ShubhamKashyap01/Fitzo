@@ -34,7 +34,7 @@ router.get("/location/:location", async (req, res) => {
 });
 
 //Get slots of an activity by location
-router.get("/:activity/location/:location", async (req, res) => {
+router.post("/:activity/location/:location/slots", async (req, res) => {
   try {
     const activity = req.params.activity;
     const location = req.params.location;

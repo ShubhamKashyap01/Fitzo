@@ -24,7 +24,12 @@ const Header = ({ city }: { city?: string }) => {
   }, [locationInput, locations]);
 
   return (
-    <Navbar bg="light" expand="lg" className="header p-sm-4">
+    <Navbar
+      bg="light"
+      expand="lg"
+      className="header p-sm-4"
+      style={{ position: "sticky", top: "0", zIndex: 1000 }}
+    >
       <Container>
         <Navbar.Brand href="/webapp">
           <h3 className="logo">FitZo</h3>

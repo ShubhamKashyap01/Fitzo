@@ -3,6 +3,7 @@ import SlotLogModel from "../models/slotLogModel.js";
 async function addUserToSlotBooking(date, activityname, slotId, user) {
   try {
     let result;
+    console.log(date);
     const slotBooking = await SlotLogModel.findOne({
       activityname,
       date,
