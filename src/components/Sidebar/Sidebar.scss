@@ -1,0 +1,17 @@
+#sidebar {
+    a {
+        position: relative;
+        z-index: 1;
+
+        span {
+            display: inline-block
+        }
+
+        object {
+            position: relative;
+            z-index: -1
+        }
+
+        ;
+    }
+}
