@@ -94,6 +94,7 @@ export const createLocation = async (activityName, location) => {
   try {
     const query = { name: activityName };
     const activity = await ActivityModel.findOne(query);
+    console.log('activity', activity);
     if (!activity) {
       const newActivity = await createActivity({
         name: activityName,
@@ -101,6 +102,7 @@ export const createLocation = async (activityName, location) => {
       });
       return newActivity;
     }
+    console.log('activity', activity);
     const newLocation = activity.location.push(location);
     const data = await activity.save();
     if (!data) {
@@ -153,9 +155,9 @@ export const createSlot = async (activityName, location, slot) => {
       "location.city_name": location,
     };
     const activity = await ActivityModel.findOne(query);
+    let newActivity = activity;
     if (!activity) {
-      const newActivity = await createLocation(activityName, location);
-      return newActivity;
+      newActivity = await createLocation(activityName, location);
     }
     const slot_id = location?.slice(0, 3).toUpperCase() + slot.start_time;
     const newSlot = {
@@ -163,7 +165,7 @@ export const createSlot = async (activityName, location, slot) => {
       start_time: slot.start_time,
       capacity: slot?.capacity || 0,
     };
-    const data = await updateSlot(activity, location, newSlot);
+    const data = await updateSlot(newActivity, location, newSlot);
     if (!data) {
       throw Error("Unable to create slot");
     }

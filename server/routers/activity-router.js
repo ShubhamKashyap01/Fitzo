@@ -12,7 +12,11 @@ const router = express.Router();
 router.get("/", (req, res) => {
   ActivityModel.find()
     .then((data) => {
-      res.json(data);
+      res.json({
+        status: "SUCCESS",
+        message: "Fetched Succesfully",
+        data: data,
+      });
     })
     .catch((err) => {
       res.send(500, err);

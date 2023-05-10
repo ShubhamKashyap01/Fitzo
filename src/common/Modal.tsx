@@ -19,10 +19,6 @@ export default function ModalContainer({ open, setOpen, title, children }) {
               <Button appearance="subtle" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-              <Button
-                appearance="primary"
-                onClick={() => setOpen(false)}
-              >Submit</Button>
             </Modal.Footer>
           </Modal>
         )}

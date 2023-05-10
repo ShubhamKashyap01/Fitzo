@@ -1,21 +1,21 @@
 import axios from "axios";
-
-export const bookSlot = async (
-  slotId: string,
-  userId: string,
-  date: Date,
-  activityname: string
-) => {
+//Create activity
+export const createActivity = async (activity: any) => {
   try {
-    const res = await axios.post("/slot/add-user", {
-      date: date,
-      activityname: activityname,
-      slotid: slotId,
-      userid: userId,
-    });
+    const res = await axios.post("/activities/create", activity);
     return res;
   } catch (err) {
-    console.log(err);
+    throw err;
+  }
+};
+
+//get all activities
+export const getAllActivities = async () => {
+  try {
+    const res = await axios.get("/activities");
+    return res?.data;
+  } catch (err) {
+    throw err;
   }
 };
 
@@ -25,6 +25,7 @@ export const getActivitiesByLocation = async (location: string) => {
     const res = await axios.get(`/activities/location/${location}`);
     return res?.data;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
+

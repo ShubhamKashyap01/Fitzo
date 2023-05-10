@@ -15,6 +15,7 @@
     "@atlaskit/css-reset": "^6.4.1",
     "@atlaskit/datetime-picker": "^12.4.0",
     "@atlaskit/flag": "^15.1.6",
+    "@atlaskit/form": "^8.10.0",
     "@atlaskit/icon": "^21.11.5",
     "@atlaskit/modal-dialog": "^12.4.13",
     "@atlaskit/select": "^16.1.9",
