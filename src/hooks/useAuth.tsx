@@ -26,8 +26,10 @@ function useProvideAuth() {
   const signin = async (email, password) => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
-      setUser(res?.data?.data);
-      return res.data?.data;
+      const user = res?.data?.data;
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
     } catch (error) {
       console.log(error);
       throw error;
@@ -54,11 +56,6 @@ function useProvideAuth() {
     }
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  }, [user]);
   // Return the user object and auth methods
   return {
     user,

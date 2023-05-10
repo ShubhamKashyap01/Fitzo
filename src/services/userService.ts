@@ -22,6 +22,24 @@ export const createUserWithEmailAndPassword = async (user: any) => {
   }
 };
 
+export const updateUser = async (user: any) => {
+  try {
+    const res = await axios.put("/user/update", user);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteUser = async (email: string) => {
+  try {
+    const res = await axios.delete(`/user/delete/${email}`);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const subscribe = async (userid, subscriptionid) => {
   try {
     const res = await axios.post("/user/subscribe", { userid, subscriptionid });
@@ -33,7 +51,28 @@ export const subscribe = async (userid, subscriptionid) => {
 
 export const upgradeSubscribtion = async (userid, subscriptionid) => {
   try {
-    const res = await axios.post("/user/upgrade-subscribe", { userid, subscriptionid });
+    const res = await axios.post("/user/upgrade-subscribe", {
+      userid,
+      subscriptionid,
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const userCheckin = async (userId, date, checkIn) => {
+  try {
+    const res = await axios.post("/user/checkin", { userId, date, checkIn });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const userCheckout = async (userId, date, checkOut) => {
+  try {
+    const res = await axios.post("/user/checkout", { userId, date, checkOut });
     return res;
   } catch (err) {
     throw err;

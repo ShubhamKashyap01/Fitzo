@@ -2,20 +2,22 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Icon from "../../common/Icon";
 import { Link, useParams } from "react-router-dom";
-import './Sidebar.scss'
+import "./Sidebar.scss";
+import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = () => {
-  const params = useParams();
-  console.log('params', params);
-
+  const { signout } = useAuth();
   return (
     <Container
-      className="position-absolute start-0 top-0 vh-100"
+      className="position-fixed start-0 top-0 vh-100"
       style={{ background: "#000101", width: "100px" }}
       id="sidebar"
     >
       <div className="sidebar-header"></div>
-      <ul className="list-unstyled components d-flex flex-column align-items-center justify-content-center h-75">
+      <ul
+        className="list-unstyled components d-flex flex-column align-items-center justify-content-center"
+        style={{ height: "90%" }}
+      >
         <li className="active my-4">
           <Link to="./" className="p-4">
             <span>
@@ -39,6 +41,11 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
+      <div className="active my-4">
+        <Link onClick={signout} to="" className="p-4">
+          <Icon fa icon="power-off" color="white" type="light" size={30} />
+        </Link>
+      </div>
     </Container>
   );
 };

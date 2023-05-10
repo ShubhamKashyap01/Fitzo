@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 
 import { activityType } from "../../constants/activityConstants";
 import { getActivitiesByLocation } from "../../services/activityService";
+import { useAuth } from "../../hooks/useAuth";
 
 const ActivityList = ({ city, style = {} }) => {
   const [activities, setActivities] = React.useState([]);
+  const { user } = useAuth();
   useEffect(() => {
     (async () => {
       try {
@@ -27,12 +29,14 @@ const ActivityList = ({ city, style = {} }) => {
 
   return (
     <Container style={{ maxWidth: "1100px", ...style }}>
-      <Row className="my-4">
-        <h3 className="p-0 mb-4" style={{ fontWeight: 400 }}>
-          Activities in your area
-        </h3>
-        <p className="thinline"></p>
-      </Row>
+      {!user || user?.role !== "admin" && (
+        <Row className="my-4 ">
+          <h3 className="p-0 mb-4" style={{ fontWeight: 400 }}>
+            Activities in your area
+          </h3>
+          <p className="thinline"></p>
+        </Row>
+      )}
       <Row className="my-4">
         {activities?.map((activity) => (
           <Col sm="6" lg="4" className="my-2">

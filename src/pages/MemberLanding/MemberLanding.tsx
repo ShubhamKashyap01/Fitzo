@@ -16,8 +16,13 @@ const MemberLanding = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
 
-  const onChange = (date: Date) => {
+  const onDateChange = (date: Date) => {
     setDate(() => new Date(date.getTime() + TZ_OFFSET));
+  };
+
+  const onLocationChange = (location) => {
+    const val = location.value
+    setLocation(val);
   };
 
   useEffect(() => {
@@ -29,16 +34,16 @@ const MemberLanding = () => {
       <Header />
       <Sidebar />
       {user && (
-        <div className="float-end p-4" style={{ width: "calc(100% - 100px)" }}>
+        <div className="float-end p-4 right-layout" >
           <Row className="justify-content-between">
             <Col>
               <h3 className="fw-bold">Dashboard</h3>
             </Col>
             <Col>
-              <LocationInput onChange={setLocation} />
+              <LocationInput onChange={onLocationChange} />
             </Col>
             <Col>
-              <DatePicker onChange={onChange} value={date} />
+              <DatePicker onChange={onDateChange} value={date} />
             </Col>
           </Row>
           <Row>

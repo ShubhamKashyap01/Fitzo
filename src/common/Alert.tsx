@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import FlagAlert from "./Flag";
 
-const AlertDismiss = ({ message, setError, variant="danger" }) => {
+const AlertDismiss = ({ message, setError, variant = "primary" }) => {
   const [show, setShow] = useState(true);
 
   const onClose = () => {
@@ -12,27 +13,22 @@ const AlertDismiss = ({ message, setError, variant="danger" }) => {
   useEffect(() => {
     setTimeout(() => {
       onClose();
-    }, 5000);
+    }, 3000);
   });
 
   if (show) {
     return (
-      <Alert
-        variant={variant}
-        onClose={onClose}
-        dismissible
-        style={{
-          position: "fixed",
-          minWidth: " 400px",
-          left: "calc(50% - 200px)",
-          top: "24px",
-          transition: "all 1s ease-in-out !important",
-          zIndex: 9999,
-        }}
-      >
-        <Alert.Heading style={{ fontSize: "1.2rem" }}>Oh snap!</Alert.Heading>
-        <p>{message}</p>
-      </Alert>
+      <div style={{
+            position: "fixed",
+            right: "50px",
+            top: "24px",
+            minWidth: "300px",
+            width: "300px",
+            transition: "all 1s ease-in-out !important",
+            zIndex: 9999,
+          }}>
+        <FlagAlert message={message} success={variant !== "danger"} />
+      </div>
     );
   }
   return <Button onClick={() => setShow(true)}>Show Alert</Button>;

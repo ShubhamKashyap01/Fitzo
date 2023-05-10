@@ -1,17 +1,25 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback } from "react";
 import "./Header.scss";
 import Container from "react-bootstrap/Container";
-import { Nav, Navbar, Form, ListGroup, Accordion } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import useApi from "../../hooks/useApi";
+import { Nav, Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import LocationInput from "../../common/LocationInput";
+import AvatarCircle from "../../common/Avatar";
 
 const Header = ({ city }: { city?: string }) => {
   const { user, signout } = useAuth();
-  const navigate = (loc: string) => {
-    window.location.href = `/webapp/${loc}`;
+  const navigate = useNavigate();
+  const onChange = (loc) => {
+    const path = loc?.value;
+    navigate(`/${path}`);
   };
+
+  const getAvatar = useCallback(() => {
+    const firstLetter = user?.firstName?.charAt(0).toLowerCase();
+    return `/assets/images/avatars/${firstLetter}-circle.png`;
+  }, [user]);
+
   return (
     <Navbar
       bg="light"
@@ -25,11 +33,15 @@ const Header = ({ city }: { city?: string }) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <Nav>
-            {city && <LocationInput city={city} onChange={(loc) => navigate(loc)} />}
-            <Nav.Link href="/webapp/membership">Membership</Nav.Link>
+          <Nav style={{ alignItems: "center" }}>
+            {city && <LocationInput onChange={onChange} />}
+            {user?.role === "non-member" && (
+              <Nav.Link href="/webapp/membership">Membership</Nav.Link>
+            )}
             {user ? (
-              <Nav.Link onClick={signout}>Sign Out</Nav.Link>
+              <Nav.Link onClick={() => navigate("/user")}>
+                <AvatarCircle src={getAvatar()} />
+              </Nav.Link>
             ) : (
               <Nav.Link href="/webapp/auth">Sign In</Nav.Link>
             )}

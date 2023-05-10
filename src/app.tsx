@@ -15,6 +15,7 @@ import { ProvideAuth } from "./hooks/useAuth";
 import Auth from "./pages/Auth/Auth";
 import PaymentForm from "./components/Payment/Payment";
 import MemberLanding from "./pages/MemberLanding/MemberLanding";
+import Admin from "./pages/Admin/Admin";
 
 export function App() {
   return (
@@ -26,7 +27,8 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path=":activity" element={<Activity />} />
           </Route>
-          <Route path="user/*" element={<MemberLanding/>} ></Route>
+          <Route path="user" element={<MemberLanding/>} ></Route>
+          <Route path="admin" element={<Admin/>} ></Route>
           <Route path="membership" element={<Membership/>} ></Route>
           <Route path="auth" element={<Auth />} />
           <Route path="payment" element={<PaymentForm />} />
