@@ -13,6 +13,7 @@ const ActivityForm = ({ create = false }) => {
   const [location, setLocation] = React.useState("hyderabad");
   const [activity, setActivity] = React.useState("cricket");
   const [slot, setSlot] = React.useState("00:00");
+  const [capacity, setCapacity] = React.useState(0);
   const [error, setError] = React.useState(null);
   const [success, setSuccess] = React.useState(null);
 
@@ -40,11 +41,10 @@ const ActivityForm = ({ create = false }) => {
       const data = {
         activityName: activity,
         location,
-        slot: convertToTime(slot),
+        slot: { start_time: convertToTime(slot), capacity: capacity },
       };
       const res = await createActivity(data);
-      if(res){
-
+      if (res) {
         setSuccess("Activity created successfully");
       }
       console.log(res);
@@ -62,7 +62,7 @@ const ActivityForm = ({ create = false }) => {
             name="activity"
             value={activity}
             wrapperClass="mb-4"
-            label="Activity nme"
+            label="Activity name"
             id="activity-register"
             type="text"
             onChange={(e) => setActivity(e.target.value)}
@@ -84,6 +84,17 @@ const ActivityForm = ({ create = false }) => {
           placeholder="13:00"
           timeIsEditable
           onChange={setSlot}
+        />
+      </Row>
+      <Row className="my-3">
+        <MDBInput
+          name="capacity"
+          value={capacity}
+          wrapperClass="mb-4"
+          label="Capacity"
+          id="capacity-register"
+          type="number"
+          onChange={(e) => setCapacity(parseInt(e.target.value))}
         />
       </Row>
       <Row className="my-3">

@@ -94,16 +94,24 @@ export const createLocation = async (activityName, location) => {
   try {
     const query = { name: activityName };
     const activity = await ActivityModel.findOne(query);
-    console.log('activity', activity);
+    console.log("activity", activity);
     if (!activity) {
       const newActivity = await createActivity({
         name: activityName,
-        location: [location],
+        location: [
+          {
+            city_name: location,
+            slots: [],
+          },
+        ],
       });
       return newActivity;
     }
-    console.log('activity', activity);
-    const newLocation = activity.location.push(location);
+    const newLocation = activity.location.push({
+      city_name: location,
+      slots: [],
+    });
+    console.log("activity", activity);
     const data = await activity.save();
     if (!data) {
       throw Error("Unable to create location");
