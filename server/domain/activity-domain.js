@@ -72,7 +72,7 @@ export const getActivitySlots = async (activityName, location, date) => {
 };
 
 const createActivity = async (activity) => {
-  console.log("createLocation", activity);
+  // console.log("createLocation", activity);
 
   try {
     const newActivity = new ActivityModel(activity);
@@ -89,12 +89,11 @@ const createActivity = async (activity) => {
 //Create location for an activity by activity name and location
 //if activity is not present, create a new activity
 export const createLocation = async (activityName, location) => {
-  console.log("createLocation", activityName, location);
+  // console.log("createLocation", activityName, location);
 
   try {
     const query = { name: activityName };
     const activity = await ActivityModel.findOne(query);
-    console.log("activity", activity);
     if (!activity) {
       const newActivity = await createActivity({
         name: activityName,
@@ -111,7 +110,6 @@ export const createLocation = async (activityName, location) => {
       city_name: location,
       slots: [],
     });
-    console.log("activity", activity);
     const data = await activity.save();
     if (!data) {
       throw Error("Unable to create location");
@@ -123,7 +121,7 @@ export const createLocation = async (activityName, location) => {
 };
 
 const updateSlot = async (activity, location, slot) => {
-  console.log("update", slot);
+  // console.log("update", slot);
 
   try {
     //Match the location in the activity? and update the slots
@@ -156,7 +154,7 @@ const updateSlot = async (activity, location, slot) => {
 //Create a slot for an activity by activity name and location and slot
 //if location is not present, create a new location
 export const createSlot = async (activityName, location, slot) => {
-  console.log("createSlot", activityName, location, slot);
+  // console.log("createSlot", activityName, location, slot);
   try {
     const query = {
       name: activityName,

@@ -11,7 +11,6 @@ import { initialUser } from "../../constants/userConstants";
 
 const Register = ({ onSubmit, oAuth = false, update = false, preUser=initialUser }) => {
   const [userDetails, setUser] = useState({ ...initialUser, ...preUser});
-  console.log(userDetails)
 
   const [error, setError] = useState("");
 

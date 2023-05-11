@@ -4,6 +4,7 @@ import Card from "../../common/Card";
 import Icon from "../../common/Icon";
 import { activityType } from "../../constants/activityConstants";
 import { removeUserFromSlot } from "../../services/slotServices";
+import { set } from "mongoose";
 
 //Get time from HYD0600 format with AM or PM with edge cases for 12
 const getTime = (slotId) => {
@@ -22,8 +23,21 @@ const getTime = (slotId) => {
 const Class = ({ slot, user }) => {
   const [selected, setSelected] = useState(false);
   const [removed, setRemoved] = useState(false);
-  const handleCancel = () => {
-    removeUserFromSlot(slot.date, slot.activityname, slot.slotId, user._id);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const handleCancel = async () => {
+    try {
+      const res = await removeUserFromSlot(
+        slot.date,
+        slot.activityname,
+        slot.slotId,
+        user._id
+      );
+      setSuccess("Class Cancelled");
+    } catch {
+      setError("Error cancelling class");
+    }
+
     setRemoved(true);
   };
   return (

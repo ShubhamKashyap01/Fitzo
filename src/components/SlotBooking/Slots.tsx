@@ -30,7 +30,6 @@ const Slots = ({ date, activity, location }) => {
       setError("Please login to book a slot");
     } else {
       try {
-        console.log(selectedSlot.id, user?._id, date, activity);
         const res = await bookSlot(selectedSlot.id, user?._id, date, activity);
         if (res) {
           setSucess("Slot booked successfully");
@@ -42,7 +41,6 @@ const Slots = ({ date, activity, location }) => {
   };
 
   const isSelected = (slot) => {
-    console.log("checking", slot, user);
     if (user) {
       return slot?.users?.includes(user?._id);
     }
@@ -61,7 +59,6 @@ const Slots = ({ date, activity, location }) => {
         );
         if (response?.data?.data) {
           setSlotList(() => sortSlots(response.data.data));
-          console.log(response.data?.data);
         }
       } catch {
         setError("Something went wrong");

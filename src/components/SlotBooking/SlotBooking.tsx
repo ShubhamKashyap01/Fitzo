@@ -14,7 +14,6 @@ const SlotBooking = () => {
     new Date(new Date(new Date().toDateString()).getTime() + TZ_OFFSET)
   );
   useEffect(() => {
-    console.log(date);
   }, [date]);
   const onChange = (date: Date) => {
     setDate(() => new Date(date.getTime() + TZ_OFFSET));
