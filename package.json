@@ -6,8 +6,8 @@
   "scripts": {
     "start": "cls && concurrently \"vite\" \"node server.js\"",
     "dev": "cls && concurrently \"vite\" \"nodemon server.js\"",
-    "ui": "clear && \"vite\"",
-    "server": "clear && \"nodemon server.js\"",
+    "ui": "clear && vite",
+    "server": "clear && nodemon server.js",
     "build": "vite build",
     "preview": "vite preview"
   },
