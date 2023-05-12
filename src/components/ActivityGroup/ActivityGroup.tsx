@@ -19,31 +19,39 @@ const ActivityGroup = () => {
       <p className="h4 my-1">Activities</p>
       <Row className="my-3">
         <Col>
-          <p>Location</p>
+          <Row>
+            <p>Location</p>
+          </Row>
+          <Row>
+            <LocationInput onChange={onLocationChange} />
+          </Row>
         </Col>
         <Col>
-          <Button
-            onClick={() => {
-              setOpen(true);
-              setCreate(true);
-            }}
-          >
-            {" "}
-            Create Activity
-          </Button>
-          <Button
-            onClick={() => {
-              setOpen(true);
-              setCreate(false);
-            }}
-          >
-            {" "}
-            Update Activity
-          </Button>
+          <Row className="mb-3">
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setCreate(true);
+              }}
+            >
+              {" "}
+              Create Activity
+            </Button>
+          </Row>
+          <Row className="mb-3">
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setCreate(false);
+              }}
+            >
+              {" "}
+              Update Activity
+            </Button>
+          </Row>
           <ModalContainer open={open} setOpen={setOpen} title="Create Activity">
             <ActivityForm create={create} />
           </ModalContainer>
-          <LocationInput onChange={onLocationChange} />
         </Col>
       </Row>
       <Row>

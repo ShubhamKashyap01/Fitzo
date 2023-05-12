@@ -56,7 +56,7 @@ const ActivityForm = ({ create = false }) => {
 
   return (
     <Container>
-      <Row className="my-3">
+      <Row className="my-3 mx-0" >
         {create ? (
           <MDBInput
             name="activity"
@@ -65,6 +65,7 @@ const ActivityForm = ({ create = false }) => {
             label="Activity name"
             id="activity-register"
             type="text"
+            
             onChange={(e) => setActivity(e.target.value)}
           />
         ) : (
@@ -78,7 +79,7 @@ const ActivityForm = ({ create = false }) => {
       <Row className="my-3">
         <LocationInput onChange={onLocationChange} />
       </Row>
-      <Row className="my-3">
+      <Row className="my-4">
         <TimePicker
           timeFormat="HH:mm"
           placeholder="13:00"
@@ -86,7 +87,7 @@ const ActivityForm = ({ create = false }) => {
           onChange={setSlot}
         />
       </Row>
-      <Row className="my-3">
+      <Row className="my-3 mx-0">
         <MDBInput
           name="capacity"
           value={capacity}

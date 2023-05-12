@@ -21,12 +21,17 @@ const MemberLanding = () => {
   };
 
   const onLocationChange = (location) => {
-    const val = location.value
+    const val = location.value;
     setLocation(val);
   };
 
   useEffect(() => {
     !localStorage.getItem("user") && navigate("/auth");
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin");
+      }
+    }
   }, [user]);
 
   return (
@@ -34,23 +39,40 @@ const MemberLanding = () => {
       <Header />
       <Sidebar />
       {user && (
-        <div className="float-end p-4 right-layout" >
-          <Row className="justify-content-between">
-            <Col>
-              <h3 className="fw-bold">Dashboard</h3>
-            </Col>
-            <Col>
-              <LocationInput onChange={onLocationChange} />
-            </Col>
-            <Col>
-              <DatePicker onChange={onDateChange} value={date} />
-            </Col>
-          </Row>
+        <div className="float-end p-4 right-layout">
+          <Col className="mb-5">
+            <h3 className="fw-bold">Dashboard</h3>
+          </Col>
           <Row>
-            <ActivityList city={location} style={{ marginLeft: "0"}} />
-          </Row>
-          <Row>
-            <Schedule user={user} date={date} />
+            <Col
+              id="user-feed"
+              className="mb-5"
+              lg={{ span: 9, order: "first" }}
+              xs={{ order: "last" }}
+            >
+              <Row className="justify-content-between">
+                <Col>
+                  <LocationInput onChange={onLocationChange} />
+                </Col>
+                <Col>
+                  <DatePicker onChange={onDateChange} value={date} />
+                </Col>
+              </Row>
+              <Row>
+                <ActivityList city={location} style={{ marginLeft: "0" }} />
+              </Row>
+              <Row>
+                <Schedule user={user} date={date} />
+              </Row>
+            </Col>
+            <Col
+              id="user-log"
+              className="mb-5"
+              lg={{ span: 3, order: "last" }}
+              xs={{ order: "first" }}
+            >
+              <h4>Log</h4>
+            </Col>
           </Row>
         </div>
       )}

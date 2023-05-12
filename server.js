@@ -5,6 +5,7 @@ import userRouter from "./server/routers/user-router.js";
 import activityRouter from "./server/routers/activity-router.js";
 import slotRouter from "./server/routers/slotlog-router.js";
 import subscriptionRouter from "./server/routers/subscription-router.js";
+import activityLogRouter from "./server/routers/log-router.js";
 import swaggerUi from "swagger-ui-express";
 import { connectDatabase } from "./server/config/database.js";
 import { specs } from "./server/config/swagger.js";
@@ -31,6 +32,7 @@ app.use("/user", userRouter);
 app.use("/activities", activityRouter);
 app.use("/slot", slotRouter);
 app.use("/subscription", subscriptionRouter);
+app.use("/activityLog", activityLogRouter);
 app.use(express.static("./server/assets"));
 
 app.get("/api/v1", (req, res) => {
