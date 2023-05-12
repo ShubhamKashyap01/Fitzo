@@ -9,6 +9,7 @@ import DatePicker from "react-date-picker";
 import TZ_OFFSET from "../../constants/time";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import LocationInput from "../../common/LocationInput";
+import ActivityLog from "../../components/ActivityLog/ActivityLog";
 
 const MemberLanding = () => {
   const { user } = useAuth();
@@ -71,7 +72,7 @@ const MemberLanding = () => {
               lg={{ span: 3, order: "last" }}
               xs={{ order: "first" }}
             >
-              <h4>Log</h4>
+              <ActivityLog />
             </Col>
           </Row>
         </div>

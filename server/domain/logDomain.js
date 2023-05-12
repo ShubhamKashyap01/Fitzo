@@ -12,9 +12,9 @@ async function createActivityLog(
     const activity = await ActivityLogModel.findOne({ user_id, date });
     if (activity) {
       const res = updateActivityLog(user_id, date, {
-        treadmill_hours,
-        cycling_hours,
-        weight_training_hours,
+        treadmill_hours: activity.treadmill_hours || treadmill_hours,
+        cycling_hours: activity.cycling_hours || cycling_hours,
+        weight_training_hours: activity.weight_training_hours || weight_training_hours,
       });
       return res;
     } else {
