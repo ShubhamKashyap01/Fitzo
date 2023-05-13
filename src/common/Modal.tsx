@@ -5,7 +5,13 @@ import Modal from "react-bootstrap/Modal";
 
 import { ModalTransition } from "@atlaskit/modal-dialog";
 
-export default function ModalContainer({ open, setOpen, title, children }) {
+export default function ModalContainer({
+  open,
+  setOpen,
+  title,
+  children,
+  onSubmit = null,
+}) {
   return (
     <>
       <ModalTransition>
@@ -19,6 +25,11 @@ export default function ModalContainer({ open, setOpen, title, children }) {
               <Button appearance="subtle" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
+              {onSubmit && (
+                <Button appearance="primary" onClick={() => onSubmit()}>
+                  Submit
+                </Button>
+              )}
             </Modal.Footer>
           </Modal>
         )}

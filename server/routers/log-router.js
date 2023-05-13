@@ -3,6 +3,7 @@ import {
   createActivityLog,
   updateActivityLog,
   getActivityLogs,
+  getAllActivityLogsByUser,
 } from "./../domain/logDomain.js";
 
 const router = express.Router();
@@ -58,6 +59,20 @@ router.get("/", async (req, res) => {
 
   try {
     const activityLogs = await getActivityLogs(user_id, date);
+    res.json({
+      STATUS: "SUCCESS",
+      message: "Activity log retrieved successfully",
+      data: activityLogs,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+router.post("/all", async (req, res) => {
+  const { user_id } = req.body;
+
+  try {
+    const activityLogs = await getAllActivityLogsByUser(user_id);
     res.json({
       STATUS: "SUCCESS",
       message: "Activity log retrieved successfully",

@@ -1,39 +1,69 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import Icon from "../../common/Icon";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../hooks/useAuth";
 import TZ_OFFSET from "../../constants/time";
+import AlertDismiss from "../../common/Alert";
+import ModalContainer from "../../common/Modal";
+import ActivityLogForm from "./ActivityLogForm";
+import ActivityChart from "./ActivityChart";
+import DailyTimeChart from "../UserLog/UserLog";
+
+const workoutList = [
+  {
+    name: "Treadmill",
+    id: "treadmill",
+  },
+  {
+    name: "Cycling",
+    id: "cycling",
+  },
+  {
+    name: "Gym",
+    id: "weight_training",
+  },
+];
 
 const ActivityLog = () => {
   const { user } = useAuth();
-  const date = new Date(new Date(new Date().toDateString()).getTime() + TZ_OFFSET)
-  const onClickHandler = async (a) => {
-    if (user) {
-      const res = await axios.post("/activityLog", {
-        date: date,
-        user_id: user?._id,
-        [`${a}_hours`]: 1,
-      });
-        console.log(res);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("treadmill");
+  const [date, setDate] = useState(
+    new Date(new Date(new Date().toDateString()).getTime() + TZ_OFFSET)
+  );
+  const [time, setTime] = useState("0");
+  const [log, setLogs] = useState([]);
+
+  const onClickHandler = async () => {
+    try {
+      console.log([`${selected}_hours`], date, user?._id, parseInt(time));
+      if (user) {
+        const res = await axios.post("/activityLog", {
+          date: date,
+          user_id: user?._id,
+          [`${selected}_hours`]: parseInt(time),
+        });
+        setSuccess("Succesfully Added");
+      }
+    } catch (err) {
+      setError(err?.response?.data);
     }
   };
 
-  const workoutList = [
-    {
-      name: "Treadmill",
-      id: "treadmill",
-    },
-    {
-      name: "Cycling",
-      id: "cycling",
-    },
-    {
-      name: "Gym",
-      id: "gym",
-    },
-  ];
+  const clickHandler = (val) => {
+    setOpen(true);
+    setSelected(val);
+  };
+
+  const onUpdate = (date, time) => {
+    console.log(date, time, selected);
+    setDate(date);
+    setTime(time);
+  }; 
 
   return (
     <Container fluid="none">
@@ -41,17 +71,19 @@ const ActivityLog = () => {
       <Row>
         {workoutList.map((workout, index) => {
           return (
-            <Col
+            <div
+              key={index}
               className="m-2 px-0"
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                  width: "16rem"
               }}
             >
               <Card
                 key={index}
                 style={{ width: "16rem" }}
-                onClick={()=>onClickHandler(workout.id)}
+                onClick={() => clickHandler(workout.id)}
               >
                 <Card.Body className="d-flex">
                   <Icon
@@ -76,10 +108,27 @@ const ActivityLog = () => {
                   </div>
                 </Card.Body>
               </Card>
-            </Col>
+            </div>
           );
         })}
       </Row>
+      <ModalContainer
+        open={open}
+        setOpen={setOpen}
+        title={`Add Activity Log`}
+        onSubmit={onClickHandler}
+      >
+        <ActivityLogForm onUpdate={onUpdate} />
+      </ModalContainer>
+      {error && (
+        <AlertDismiss message={error} setError={setError} variant="danger" />
+      )}
+      {success && (
+        <AlertDismiss
+          message={`Succesfully added activity log `}
+          setError={setSuccess}
+        />
+      )}
     </Container>
   );
 };

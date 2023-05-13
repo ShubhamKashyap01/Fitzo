@@ -73,5 +73,18 @@ async function getActivityLogs(user_id, date) {
     throw error;
   }
 }
+async function getAllActivityLogsByUser(user_id) {
+  try {
+    const query = { user_id };
 
-export { createActivityLog, updateActivityLog, getActivityLogs };
+    const activityLogs = await ActivityLogModel.find(query);
+    if (!activityLogs) {
+      throw new Error(`Activity log for user ${user_id} not found.`);
+    }
+    return activityLogs;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { createActivityLog, updateActivityLog, getActivityLogs, getAllActivityLogsByUser };

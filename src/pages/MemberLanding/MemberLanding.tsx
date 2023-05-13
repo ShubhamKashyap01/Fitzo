@@ -10,6 +10,13 @@ import TZ_OFFSET from "../../constants/time";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import LocationInput from "../../common/LocationInput";
 import ActivityLog from "../../components/ActivityLog/ActivityLog";
+import ActivityChart from "../../components/ActivityLog/ActivityChart";
+import DailyTimeChart from "../../components/UserLog/UserLog";
+import Card from "../../common/Card";
+import SlotHistory from "../../components/SlotHistory/SlotHistory";
+import SlotHistoryWrapper from "../../components/SlotHistory/SlotHistoryWrapper";
+import Divider from "../../common/Divider";
+import Analytics from "../../components/Analytics/Analytics";
 
 const MemberLanding = () => {
   const { user } = useAuth();
@@ -66,15 +73,19 @@ const MemberLanding = () => {
                 <Schedule user={user} date={date} />
               </Row>
             </Col>
-            <Col
+            {/* <Col
               id="user-log"
               className="mb-5"
               lg={{ span: 3, order: "last" }}
               xs={{ order: "first" }}
             >
               <ActivityLog />
-            </Col>
+            </Col> */}
           </Row>
+
+          {/* <Divider /> */}
+
+          <Analytics user={user} />
         </div>
       )}
     </Container>

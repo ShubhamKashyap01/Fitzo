@@ -9,7 +9,7 @@ import {
   upgradeSubscription,
   validateUser,
 } from "../domain/user-domain.js";
-import { userCheckin, userCheckout } from "../domain/checking-domain.js";
+import { getCheckoutForUser, userCheckin, userCheckout } from "../domain/checking-domain.js";
 
 const router = express.Router();
 
@@ -160,5 +160,21 @@ router.post("/checkout", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+//Get All Checkins
+router.post("/checkin/all", async (req, res) => {
+  const {userId} = req.body;
+  try {
+    const checkins = await getCheckoutForUser(userId);
+    res.json({
+      status: "SUCCESS",
+      message: "Fetched Succesfully",
+      data: checkins,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 
 export default router;

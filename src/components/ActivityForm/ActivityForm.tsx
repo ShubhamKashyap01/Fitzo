@@ -81,7 +81,7 @@ const ActivityForm = ({ create = false }) => {
       </Row>
       <Row className="my-4">
         <TimePicker
-          timeFormat="HH:mm"
+          timeFormat="HH:mm A"
           placeholder="13:00"
           timeIsEditable
           onChange={setSlot}

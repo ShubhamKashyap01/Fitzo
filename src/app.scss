@@ -32,4 +32,8 @@ body {
     right: 0;
     height: calc(100% - 100px);
     overflow: auto;
+
+}
+.highcharts-credits{
+  display: none !important;
 }

@@ -37,3 +37,17 @@ export const userCheckout = async (userId, date, checkOut) => {
     throw e;
   }
 };
+
+export const getCheckoutForUser = async (userId) => {
+  try {
+    const checkin = await CheckinModel.find({
+      user: userId,
+    });
+    if (!checkin) {
+      throw new Error("Not Found");
+    }
+    return checkin;
+  } catch (e) {
+    throw e;
+  }
+};

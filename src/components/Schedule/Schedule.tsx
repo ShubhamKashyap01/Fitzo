@@ -23,10 +23,11 @@ const Schedule = ({ user, date = new Date() }) => {
   const filteredSlots = useMemo(() => filterToday(slotlist), [slotlist, date]);
 
   return (
-    <Container style={{ maxWidth: "800px", marginLeft: "0" }}
+    <Container style={{  marginLeft: "0" }}
     >
       <Row>
-        <h3 className="h3 p-0">Classes for today</h3>
+        <h3 className="h3 p-0 mb-4">Classes for today</h3>
+        <p className="thinline"></p>
       </Row>
       <Row>
         {filteredSlots?.map((slot) => (
