@@ -35,14 +35,18 @@ const DailyTimeChart = ({ user, success }) => {
   };
 
   const setTime = (time) => {
-    console.log(time.split(":"));
+    try{
     return time.split(":");
+    }
+    catch(err){
+      return [0,0,0]
+    }
   };
 
   React.useEffect(() => {
     (async () => {
       const sorted = await fetchLogs();
-      console.log(sorted);
+      // console.log('sorted', sorted);
 
       const series = [
         {
@@ -50,19 +54,20 @@ const DailyTimeChart = ({ user, success }) => {
           data: sorted.map((item) => {
             const [hours1, minutes1, seconds1] = setTime(item.checkin);
             const [hours2, minutes2, seconds2] = setTime(item.checkout);
-            console.log(item, hours1, minutes1, seconds1);
-            console.log(hours2, minutes2, seconds2);
+            // console.log(item, hours1, minutes1, seconds1);
+            // console.log(hours2, minutes2, seconds2);
             const checkin = new Date();
             const checkout = new Date();
             checkin.setHours(hours1, minutes1, seconds1);
             checkout.setHours(hours2, minutes2, seconds2);
             const diff =
               Math.abs(checkin.getTime() - checkout.getTime()) / 36e5;
-            console.log(diff);
+            // console.log(diff);
             return diff;
           }),
         },
       ];
+      console.log('series', series)
       setLogOptions({ ...options, series });
     })();
   }, [success]);
