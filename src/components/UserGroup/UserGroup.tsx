@@ -6,12 +6,13 @@ import CheckIn from "../CheckIn/CheckIn";
 import UserCard from "../UserCard/UserCard";
 import ActivityChart from "../ActivityLog/ActivityChart";
 import DailyTimeChart from "../UserLog/UserLog";
+import Analytics from "../Analytics/Analytics";
 
 const UserGroup = () => {
   const [selectedUser, setSelectedUser] = React.useState(null);
 
   return (
-    <Container fluid="none mb-5" >
+    <Container fluid="none mb-5">
       <p className="h4 my-1">UserGroup</p>
       <Row className="my-3">
         <Col>
@@ -24,22 +25,11 @@ const UserGroup = () => {
       <Row style={{ maxWidth: "600px" }}>
         <Col>{selectedUser && <UserCard user={selectedUser} />}</Col>
       </Row>
-      {
-        selectedUser && (
-          <Row>
-        <Col>
-          <Card>
-            <ActivityChart success={selectedUser} user={selectedUser} />
-          </Card>
-        </Col>
-        <Col>
-          <Card>
-            <DailyTimeChart success={selectedUser} user={selectedUser} />
-          </Card>
-        </Col>
-      </Row>
-        )
-      }
+      {selectedUser && (
+        <Row>
+          <Analytics user={selectedUser} />
+        </Row>
+      )}
     </Container>
   );
 };

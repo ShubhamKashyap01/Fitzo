@@ -26,9 +26,16 @@ const SlotHistoryWrapper = ({ user }) => {
   }));
 
   return (
-    <Container>
-      <Row >
-        <Col>
+    <Container className="position-relative">
+      <Row
+        style={{
+          position: "absolute",
+          zIndex: "10",
+          right: "0",
+          flexDirection: "column",
+        }}
+      >
+        <Col className="mb-2  ">
           <SelectInput
             options={convertToOptions(activityList)}
             onChange={(val) => setActivity(val?.value)}
@@ -43,7 +50,7 @@ const SlotHistoryWrapper = ({ user }) => {
           />
         </Col>
       </Row>
-      <Row  >
+      <Row>
         <SlotHistory user={user} activityName={activity} filter={filter} />
       </Row>
     </Container>
