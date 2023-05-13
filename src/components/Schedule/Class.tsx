@@ -44,7 +44,7 @@ const Class = ({ slot, user }) => {
     <>
       {!removed && (
         <Col>
-          <Card className="m-2" style={{ width: "250px" }}>
+          <Card className="m-2" style={{ width: "260px" }}>
             <Row className="align-items-center">
               <Col>
                 <div

@@ -26,14 +26,42 @@ body {
   z-index: 9999 !important;
 }
 
-.right-layout{
+.right-layout {
   width: calc(100% - 100px);
-    position: absolute;
-    right: 0;
-    height: calc(100% - 100px);
-    overflow: auto;
+  position: absolute;
+  right: 0;
+  height: calc(100% - 100px);
+  overflow: auto;
 
 }
-.highcharts-credits{
+
+.highcharts-credits {
   display: none !important;
+}
+.activity-log{
+  @media (min-width: 992px) {
+    margin-top: 90px;
+  }
+}
+* {
+  scrollbar-color: #6969dd #e0e0e0;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background-color: lightgray;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }

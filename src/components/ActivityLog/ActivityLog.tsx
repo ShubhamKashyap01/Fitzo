@@ -66,7 +66,7 @@ const ActivityLog = () => {
   }; 
 
   return (
-    <Container fluid="none">
+    <Container fluid="none" className="activity-log">
       <h4 className="mb-5">Activity Log</h4>
       <Row>
         {workoutList.map((workout, index) => {

@@ -73,14 +73,14 @@ const MemberLanding = () => {
                 <Schedule user={user} date={date} />
               </Row>
             </Col>
-            {/* <Col
+            <Col
               id="user-log"
               className="mb-5"
               lg={{ span: 3, order: "last" }}
               xs={{ order: "first" }}
             >
               <ActivityLog />
-            </Col> */}
+            </Col>
           </Row>
 
           {/* <Divider /> */}
